@@ -2,8 +2,8 @@ class TextAnalyzer:
     def __init__(self, text):
         self.text: str = text
         self.word_count: int = self.get_num_words()
-        self.letter_count: list = self.get_letters_count()
-        self.common_words: list = self.get_most_common_words(25)
+        self.letter_frequency: list = self.get_letters_count()
+        self.word_frequency: list = self.get_most_common_words(25)
 
     def get_num_words(self) -> int:
         return len(self.text.split())
@@ -30,12 +30,12 @@ class TextAnalyzer:
         report += f"{self.word_count} words found in the document\n\n"
 
         report += "Letter frequency:\n"
-        for letter, count in self.letter_count:
+        for letter, count in self.letter_frequency:
             report += f"'{letter}' : {count}\n"
         report += "\n"
 
         report += "Word frequency:\n"
-        for word, count in self.common_words:
+        for word, count in self.word_frequency:
             report += f"'{word}' : {count}\n"
         report += "\n"
 
