@@ -1,6 +1,8 @@
 import re
 from collections import Counter
 
+from internal.sentiment_analyzer import SentimentAnalyzer
+
 
 class TextAnalyzer:
     def __init__(self, text: str) -> None:
@@ -17,12 +19,13 @@ class TextAnalyzer:
         self.bigram_frequency: list = self.get_ngrams_frequency(n=2)
         self.trigram_frequency: list = self.get_ngrams_frequency(n=3)
 
-        self.average_word_length: float = self.get_average_word_length()
-        self.reading_time: float = self.get_reading_time()
-
         self.readability_score: float
         self.readability_grade: str
         self.readability_score, self.readability_grade = self.get_flesch_kincaid_score()
+
+        self.average_word_length: float = self.get_average_word_length()
+        self.reading_time: float = self.get_reading_time()
+        self.sentiment: str = self.get_sentiment()
 
 
     def get_num_words(self) -> int:
@@ -130,6 +133,11 @@ class TextAnalyzer:
         return ngram_counts.most_common(top_n)
 
 
+    def get_sentiment(self) -> str:
+        sentiment_analyzer = SentimentAnalyzer()
+        return sentiment_analyzer.analyze_sentiment(self.text)
+
+
     def format_report(self) -> str:
         report = "--- Begin report ---\n"
 
@@ -141,6 +149,7 @@ class TextAnalyzer:
         report += f"Flesch-Kincaid readability grade: {self.readability_grade}\n"
         report += f"Average word length: {self.average_word_length:.2f}\n"
         report += f"Estimated reading time: {self.reading_time:.2f} minutes\n"
+        report += f"Sentiment: {self.sentiment}\n"
         report += "\n"
 
         report += "Letter frequency:\n"
