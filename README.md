@@ -27,20 +27,20 @@ BookBot is a simple text analysis and sentiment analysis tool. It can analyze th
 
 - **Readability Metrics**: Calculate the Flesch-Kincaid readability score and grade level to assess the text's complexity.
 
+## Usage
+
+```bash
+python bookbot.py <filename.txt>
+```
+
 ## Installation
 
 To get started with BookBot, follow these steps:
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/bookbot.git
-   cd bookbot
-    ```
-
-2. Run the script:
-   ```bash
-   python bookbot.py <filename.txt>
-   ```
+Clone the repository:
+```bash
+git clone https://github.com/igorplebanczyk/bookbot.git
+```
 
 
 ## Notes
