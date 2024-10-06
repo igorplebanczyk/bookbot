@@ -1,7 +1,5 @@
 import sys
-
-from internal.file import read_file
-from internal.text_analyzer import TextAnalyzer
+from internal import TextAnalyzer, read_file
 
 
 def main() -> None:
