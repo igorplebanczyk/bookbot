@@ -1,4 +1,5 @@
 import re
+from collections import Counter
 
 
 class TextAnalyzer:
@@ -13,6 +14,8 @@ class TextAnalyzer:
         self.letter_frequency: list = self.get_letter_frequency()
         self.word_frequency: list = self.get_word_frequency()
         self.punctuation_frequency: list = self.get_punctuation_frequency()
+        self.bigram_frequency: list = self.get_ngrams_frequency(n=2)
+        self.trigram_frequency: list = self.get_ngrams_frequency(n=3)
 
         self.average_word_length: float = self.get_average_word_length()
         self.reading_time: float = self.get_reading_time()
@@ -120,6 +123,13 @@ class TextAnalyzer:
         return self.word_count / words_per_minute
 
 
+    def get_ngrams_frequency(self, n: int = 2, top_n: int = 10) -> list:
+        words = self.text.split()
+        ngrams = zip(*[words[i:] for i in range(n)])
+        ngram_counts = Counter(ngrams)
+        return ngram_counts.most_common(top_n)
+
+
     def format_report(self) -> str:
         report = "--- Begin report ---\n"
 
@@ -146,6 +156,16 @@ class TextAnalyzer:
         report += "Punctuation frequency:\n"
         for punctuation, count in self.punctuation_frequency:
             report += f"'{punctuation}' : {count}\n"
+        report += "\n"
+
+        report += "Most common bigrams:\n"
+        for bigram, count in self.bigram_frequency:
+            report += f"{' '.join(bigram)} : {count}\n"
+        report += "\n"
+
+        report += "Most common trigrams:\n"
+        for trigram, count in self.trigram_frequency:
+            report += f"{' '.join(trigram)} : {count}\n"
         report += "\n"
 
         report += "--- End report ---\n"
