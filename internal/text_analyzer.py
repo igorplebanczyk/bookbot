@@ -2,7 +2,7 @@ import re
 
 
 class TextAnalyzer:
-    def __init__(self, text):
+    def __init__(self, text: str) -> None:
         self.text: str = text
 
         self.word_count: int = self.get_num_words()
@@ -11,12 +11,15 @@ class TextAnalyzer:
         self.syllable_count: int = self.get_num_syllables()
 
         self.letter_frequency: list = self.get_letter_frequency()
-        self.word_frequency: list = self.get_word_frequency(25)
+        self.word_frequency: list = self.get_word_frequency()
         self.punctuation_frequency: list = self.get_punctuation_frequency()
 
         self.average_word_length: float = self.get_average_word_length()
-        self.readability_score: float = self.get_flesch_kincaid_score()
+        self.reading_time: float = self.get_reading_time()
 
+        self.readability_score: float
+        self.readability_grade: str
+        self.readability_score, self.readability_grade = self.get_flesch_kincaid_score()
 
 
     def get_num_words(self) -> int:
@@ -32,7 +35,7 @@ class TextAnalyzer:
         return sorted(letter_count_dict.items(), key=lambda item: item[1], reverse=True)
 
 
-    def get_word_frequency(self, n: int) -> list:
+    def get_word_frequency(self, n: int = 25) -> list:
         words = self.text.split()
         word_count = {}
 
@@ -90,12 +93,31 @@ class TextAnalyzer:
         return syllable_count
 
 
-    def get_flesch_kincaid_score(self) -> float:
-        sentence_count = self.get_num_sentences()
-        syllable_count = self.get_num_syllables()
-        if sentence_count == 0:
-            return 0.0
-        return 206.835 - 1.015 * (self.word_count / sentence_count) - 84.6 * (syllable_count / self.word_count)
+    def get_flesch_kincaid_score(self) -> (float, str):
+        score_grade = {
+            90: "Very easy",
+            80: "Easy",
+            70: "Fairly easy",
+            60: "Standard",
+            50: "Fairly difficult",
+            30: "Difficult",
+            0: "Very difficult"
+        }
+
+        if self.word_count == 0 or self.sentence_count == 0:
+            return "Score not available"
+
+        score = 206.835 - 1.015 * (self.word_count / self.sentence_count) - 84.6 * (self.syllable_count / self.word_count)
+
+        for threshold, grade in score_grade.items():
+            if score >= threshold:
+                return score, grade
+
+        return score, "Very difficult"
+
+
+    def get_reading_time(self, words_per_minute: int = 200) -> float:
+        return self.word_count / words_per_minute
 
 
     def format_report(self) -> str:
@@ -106,7 +128,9 @@ class TextAnalyzer:
         report += f"Number of sentences: {self.sentence_count}\n"
         report += f"Number of syllables: {self.syllable_count}\n"
         report += f"Flesch-Kincaid readability score: {self.readability_score:.2f}\n"
+        report += f"Flesch-Kincaid readability grade: {self.readability_grade}\n"
         report += f"Average word length: {self.average_word_length:.2f}\n"
+        report += f"Estimated reading time: {self.reading_time:.2f} minutes\n"
         report += "\n"
 
         report += "Letter frequency:\n"
