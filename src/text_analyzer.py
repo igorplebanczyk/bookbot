@@ -1,8 +1,7 @@
 import re
 from collections import Counter
 
-from internal.sentiment_analyzer import SentimentAnalyzer
-
+from .sentiment_analyzer import SentimentAnalyzer
 
 class TextAnalyzer:
     def __init__(self, text: str) -> None:

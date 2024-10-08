@@ -30,7 +30,7 @@ BookBot is a simple text analysis and sentiment analysis tool. It can analyze th
 ## Usage
 
 ```bash
-python bookbot.py <filename.txt>
+python -m bookbot <path_to_txt_file>
 ```
 
 ## Installation
