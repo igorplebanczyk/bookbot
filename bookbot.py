@@ -5,7 +5,7 @@ from internal import TextAnalyzer, read_file
 def main() -> None:
   # Check if a file path was provided as a command-line argument
   if len(sys.argv) != 2:
-    print("Usage: python text_analysis.py <path_to_text_file>")
+    print("Usage: python bookbot.py <filename.txt>")
     sys.exit(1)
 
   filepath = sys.argv[1].strip()
