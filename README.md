@@ -1,11 +1,6 @@
 # BookBot
 
-BookBot is a simple text analysis and sentiment analysis tool. It can analyze the text, calculate various metrics, and determine the emotional tone of the text.
-<br><br>
-*PIP sucks, so this project has no external dependencies.*
-<br>
-*Requires Python 3.6+*
-
+BookBot is a simple text analysis and sentiment analysis script built in Python. It can analyze the text, calculate various metrics, and determine the emotional tone of the text.
 
 ## Features
 
@@ -27,22 +22,21 @@ BookBot is a simple text analysis and sentiment analysis tool. It can analyze th
 
 - **Readability Metrics**: Calculate the Flesch-Kincaid readability score and grade level to assess the text's complexity.
 
-## Usage
-
-```bash
-python -m bookbot <path_to_txt_file>
-```
-
 ## Installation
-
-To get started with BookBot, follow these steps:
 
 Clone the repository:
 ```bash
 git clone https://github.com/igorplebanczyk/bookbot.git
 ```
 
+## Usage
+
+```bash
+python -m bookbot <path_to_txt_file>
+```
 
 ## Notes
-* Originally designed as a guided project on [boot.dev](https://www.boot.dev/courses/build-bookbot), but has since been heavily expanded.
-* It was primarily designed for learning purposes.
+* Recommended Python version: `3.10` or higher
+* Requires no external dependencies
+* Originally designed as a guided project on [boot.dev](https://www.boot.dev/courses/build-bookbot), but has since been heavily expanded
+* It was primarily designed for learning purposes
