@@ -1,5 +1,6 @@
 import os
 
+
 def read_file(path: str) -> str:
     if not os.path.isfile(path):
         raise FileNotFoundError(f"File not found: {path}")

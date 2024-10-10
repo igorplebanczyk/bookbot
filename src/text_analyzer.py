@@ -1,7 +1,8 @@
 import re
 from collections import Counter
 
-from .sentiment_analyzer import SentimentAnalyzer
+from src.sentiment_analyzer import SentimentAnalyzer
+
 
 class TextAnalyzer:
     def __init__(self, text: str) -> None:
@@ -26,10 +27,8 @@ class TextAnalyzer:
         self.reading_time: float = self.get_reading_time()
         self.sentiment: str = self.get_sentiment()
 
-
     def get_num_words(self) -> int:
         return len(self.text.split())
-
 
     def get_letter_frequency(self) -> list:
         letter_count_dict = {}
@@ -38,7 +37,6 @@ class TextAnalyzer:
                 letter_count_dict[letter] = letter_count_dict.get(letter, 0) + 1
 
         return sorted(letter_count_dict.items(), key=lambda item: item[1], reverse=True)
-
 
     def get_word_frequency(self, n: int = 25) -> list:
         words = self.text.split()
@@ -49,10 +47,8 @@ class TextAnalyzer:
 
         return sorted(word_count.items(), key=lambda item: item[1], reverse=True)[:n]
 
-
     def get_unique_word_count(self) -> int:
         return len(set(self.text.split()))
-
 
     def get_average_word_length(self) -> float:
         words = self.text.split()
@@ -60,7 +56,6 @@ class TextAnalyzer:
             return 0.0
 
         return sum(len(word) for word in words) / len(words)
-
 
     def get_punctuation_frequency(self) -> list:
         punctuation_count = {}
@@ -70,11 +65,9 @@ class TextAnalyzer:
 
         return sorted(punctuation_count.items(), key=lambda item: item[1], reverse=True)
 
-
     def get_num_sentences(self) -> int:
         sentences = re.split(r'[.!?]+', self.text)
         return len([s for s in sentences if s.strip()])
-
 
     def get_num_syllables(self) -> int:
         vowels = "aeiouy"
@@ -97,7 +90,6 @@ class TextAnalyzer:
 
         return syllable_count
 
-
     def get_flesch_kincaid_score(self) -> (float, str):
         score_grade = {
             90: "Very easy",
@@ -112,7 +104,8 @@ class TextAnalyzer:
         if self.word_count == 0 or self.sentence_count == 0:
             return "Score not available"
 
-        score = 206.835 - 1.015 * (self.word_count / self.sentence_count) - 84.6 * (self.syllable_count / self.word_count)
+        score = 206.835 - 1.015 * (self.word_count / self.sentence_count) - 84.6 * (
+                    self.syllable_count / self.word_count)
 
         for threshold, grade in score_grade.items():
             if score >= threshold:
@@ -120,10 +113,8 @@ class TextAnalyzer:
 
         return score, "Very difficult"
 
-
     def get_reading_time(self, words_per_minute: int = 200) -> float:
         return self.word_count / words_per_minute
-
 
     def get_ngrams_frequency(self, n: int = 2, top_n: int = 10) -> list:
         words = self.text.split()
@@ -131,11 +122,9 @@ class TextAnalyzer:
         ngram_counts = Counter(ngrams)
         return ngram_counts.most_common(top_n)
 
-
     def get_sentiment(self) -> str:
         sentiment_analyzer = SentimentAnalyzer()
         return sentiment_analyzer.analyze_sentiment(self.text)
-
 
     def format_report(self) -> str:
         report = "--- Begin report ---\n"

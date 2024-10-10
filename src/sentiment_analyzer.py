@@ -1,5 +1,6 @@
 import re
 
+
 class SentimentAnalyzer:
     def __init__(self):
         # Expanded positive and negative word lists
