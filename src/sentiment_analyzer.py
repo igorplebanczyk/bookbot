@@ -2,9 +2,9 @@ import re
 
 
 class SentimentAnalyzer:
-    def __init__(self):
+    def __init__(self) -> None:
         # Expanded positive and negative word lists
-        self.positive_words = {
+        self.positive_words: set[str] = {
             "happy", "joy", "love", "excited", "pleasant", "fantastic",
             "good", "wonderful", "amazing", "bright", "delight", "excellent",
             "beautiful", "successful", "peace", "positive", "grateful",
@@ -18,7 +18,7 @@ class SentimentAnalyzer:
             "exciting", "invigorating", "loving", "passionate", "playful"
         }
 
-        self.negative_words = {
+        self.negative_words: set[str] = {
             "sad", "angry", "hate", "miserable", "unpleasant", "horrible",
             "bad", "terrible", "dark", "depressing", "failure", "dreadful",
             "ugly", "hopeless", "negative", "fear", "pain", "disappointing",
@@ -32,8 +32,8 @@ class SentimentAnalyzer:
         }
 
         # Modifier words for sentiment intensification or negation
-        self.intensifiers = {"very", "extremely", "really", "incredibly", "somewhat"}
-        self.negations = {"not", "never"}
+        self.intensifiers: set[str] = {"very", "extremely", "really", "incredibly", "somewhat"}
+        self.negations: set[str] = {"not", "never"}
 
     def analyze_sentiment(self, text: str) -> str:
         # Clean the text
