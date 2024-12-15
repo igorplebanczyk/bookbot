@@ -35,6 +35,9 @@ git clone https://github.com/igorplebanczyk/bookbot.git
 python -m bookbot <path_to_txt_file>
 ```
 
+# License
+This project is licensed under the MIT License - see [LICENSE](https://github.com/igorplebanczyk/bookbot/blob/main/LICENSE).
+
 ## Notes
 * Recommended Python version: `3.10` or higher
 * Requires no external dependencies
